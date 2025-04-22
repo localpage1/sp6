@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>全屏图片浏览</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            width: 100vw;
+        }
+
+        .viewer {
+            height: 100%;
+            overflow-x: auto; /* 水平滚动 */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .image-container {
+            display: inline-flex; /* 水平排列 */
+            margin: 0;
+            padding: 0;
+        }
+
+        .image {
+            width: 100vw;
+            display: block;
+            margin: 0;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* 浮窗样式 */
+        #scroll-position {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="viewer" id="viewer">
+        <div class="image-container" id="image-container">
+            <!-- 动态生成图片 -->
+        </div>
+    </div>
+
+    <!-- 浮窗显示水平滚动位置 -->
+    <div id="scroll-position">水平滚动位置: 0</div>
+
+    <script>
+        // 恢复滚动位置
+        window.onload = function() {
+            const viewer = document.getElementById('viewer');
+            const scrollPos = localStorage.getItem('scroll') || 0;
+            viewer.scrollLeft = scrollPos;
+        };
+
+        // 保存滚动位置并实时更新浮窗显示
+        const viewer = document.getElementById('viewer');
+        const scrollPositionDisplay = document.getElementById('scroll-position');
+
+        viewer.onscroll = function() {
+            const scrollLeft = this.scrollLeft;
+            localStorage.setItem('scroll', scrollLeft);
+            scrollPositionDisplay.textContent = `水平滚动位置: ${scrollLeft}`;
+        };
+
+        // 动态生成图片列表
+        const imageContainer = document.getElementById('image-container');
+        for (let i = 1; i <= 263; i++) {
+            const img = document.createElement('img');
+            img.src = `k05-${i}.png`;
+            img.alt = `Image ${i}`;
+            img.className = 'image';
+            imageContainer.appendChild(img);
+        }
+    </script>
+</body>
+</html>
