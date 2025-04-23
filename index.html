@@ -60,7 +60,7 @@
         // 恢复滚动位置
         window.onload = function() {
             const viewer = document.getElementById('viewer');
-            const scrollPos = localStorage.getItem('scroll') || 0;
+            const scrollPos = localStorage.getItem('scroll') || document.getElementById('image-container').scrollWidth - document.getElementById('viewer').offsetWidth;
             viewer.scrollLeft = scrollPos;
         };
 
