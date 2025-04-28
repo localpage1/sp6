@@ -71,7 +71,7 @@
         viewer.onscroll = function() {
             const scrollLeft = this.scrollLeft;
             localStorage.setItem('scroll', scrollLeft);
-            scrollPositionDisplay.textContent = `计算结果: ${(100 * (1 - document.getElementById('viewer').scrollLeft / (document.getElementById('image-container').scrollWidth - document.getElementById('viewer').offsetWidth))).toFixed(2)}%`;
+            scrollPositionDisplay.textContent = `阅读进度: ${(100 * (1 - document.getElementById('viewer').scrollLeft / (document.getElementById('image-container').scrollWidth - document.getElementById('viewer').offsetWidth))).toFixed(2)}%`;
         };
 
         // 动态生成图片列表
